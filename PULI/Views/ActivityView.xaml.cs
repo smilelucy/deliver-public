@@ -48,7 +48,15 @@ namespace PULI.Views
         public async void setView() // 總表
         {
             Console.WriteLine("SETVIEW");
-            totalList = await web.Get_Daily_Shipment(MainPage.token);
+            Console.WriteLine("timeactivity~~~ " + MainPage._time);
+            if (MainPage._time == "早上")
+            {
+                totalList = await web.Get_Daily_Shipment(MainPage.token);
+            }
+            else
+            {
+                totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+            }
             stopList = await web.Get_Stop(MainPage.token);
             restoreList = await web.Get_Restore(MainPage.token);
             //Console.WriteLine("04~~~~" + totalList.daily_shipments[0].dys04);
@@ -112,7 +120,8 @@ namespace PULI.Views
                         ColumnSpacing = 0,
                         BackgroundColor = Color.FromHex("CFD4DD"),
                         WidthRequest = 1700,
-                        HeightRequest = 1400,
+                        
+                        //HeightRequest = 2000,
                         //Margin = new Thickness(-20),
                         ColumnDefinitions =
                         {
@@ -332,7 +341,7 @@ namespace PULI.Views
                         {
 
                         int j = 0;
-                        //grid.RowDefinitions.Add(new RowDefinition());
+                        grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                         grid.Children.Add(new Label
                         {
                             Text = dys08_list[i],
@@ -738,7 +747,15 @@ namespace PULI.Views
         public async void setView2() // 異動表
         {
             Console.WriteLine("SETVIEW2");
-            totalList = await web.Get_Daily_Shipment(MainPage.token);
+            Console.WriteLine("timeactivity~~~ " + MainPage._time);
+            if (MainPage._time == "早上")
+            {
+                totalList = await web.Get_Daily_Shipment(MainPage.token);
+            }
+            else
+            {
+                totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+            }
             //Console.WriteLine("tttt" + totalList.abnormals[0].different);
             //Console.WriteLine("iiii" + totalList.abnormals[0].ClientName);
             listview2.ItemTemplate = new DataTemplate(typeof(AbnormalCell)); // 把模式設為activitycell

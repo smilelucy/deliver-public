@@ -16,5 +16,7 @@ namespace Deliver.Models.DataInfo
         public string password { get; set; }
         public string identity { get; set; }
         public string login_time { get; set; }
+
+        public string time { get; set; }
     }
 }

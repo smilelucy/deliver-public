@@ -40,7 +40,7 @@ namespace PULI
         public static Date dateDatabase;
         WebService web = new WebService();
         ParamInfo param = new ParamInfo();
-        static string[] loginData = new string[3];
+        static string[] loginData = new string[4];
         public string Account;
         public string Password;
         public static string LoginTime;
@@ -50,9 +50,12 @@ namespace PULI
         public static string oldday2;
         public static string _login_time;
         public static string _identity;
+        public static string _time = "";
+        public static string time;
         public static bool checkdate = false;
         string _resIdentity = "";
         string[] identityArray = new string[] { "社工", "外送員" };
+        string[] timeArray = new string[] { "早上", "晚上"};
 
         public MainPage()
         {
@@ -89,6 +92,7 @@ namespace PULI
                 //logpwd = loginData[1]; // 紀錄登入密碼
                 Console.WriteLine("1111~~~" + loginData[1]);
                 loginData[2] = accountList.identity;
+                loginData[3] = accountList.time;
                 Password = loginData[1];
                 LoginTime = accountList.login_time;
                 Console.WriteLine("login_time@@~~~" + LoginTime);
@@ -101,7 +105,7 @@ namespace PULI
                 Console.WriteLine("date~~~~" + time.ToString("MMdd"));
                 Console.WriteLine("date_database_count~~" + dateDatabase.GetAccountAsync2().Count());
                 
-                login(loginData[0], loginData[1], loginData[2]);
+                login(loginData[0], loginData[1], loginData[2], loginData[3]);
             }
             //else//沒有的話進去登入頁面
             //{
@@ -115,7 +119,7 @@ namespace PULI
             //}
         }
 
-        private async void login(String acc, String pwd, String iden)
+        private async void login(String acc, String pwd, String iden, String time)
         {
             try
             {
@@ -143,18 +147,29 @@ namespace PULI
                     //Console.WriteLine("NAME~~~" + userList.acc_name);
                     token += userList.acc_token;
                     Console.WriteLine("OOOOO " + token);
-                    totalList = await web.Get_Daily_Shipment(token);
-                    
+                    Console.WriteLine("auto_time~~ " + time);
+                    if (time == "早上")
+                    {
+                        _time = "早上";
+                        totalList = await web.Get_Daily_Shipment(MainPage.token);
+
+                    }
+                    else
+                    {
+                        _time = "晚上";
+                        totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+                    }
+
 
                     if (string.IsNullOrEmpty(NAME))
                     {
-                        login(acc, pwd, iden);
+                        login(acc, pwd, iden, time);
                     }
                     else
                     {
                         if (string.IsNullOrEmpty(AUTH))
                         {
-                            login(acc, pwd, iden);
+                            login(acc, pwd, iden, time);
                         }
                         else
                         {
@@ -509,13 +524,21 @@ namespace PULI
                             account = account.Text,
                             password = pwd.Text,
                             identity = _identity,
-                            login_time = _login_time
+                            login_time = _login_time,
+                            time = _time
                         });
                         Console.WriteLine("LALALA2222~~~~" + fooDoggyDatabase.GetAccountAsync().Count());
                         //await App.Database.SaveAccountAsync(acc);
                         Console.WriteLine("LOGIN2");
                         Console.WriteLine("TOKEN2" + token);
-                        totalList = await web.Get_Daily_Shipment(token);
+                        if (MainPage._time == "早上")
+                        {
+                            totalList = await web.Get_Daily_Shipment(MainPage.token);
+                        }
+                        else
+                        {
+                            totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+                        }
 
                         //Console.WriteLine("CHANGE" + totalList.abnormals.Count);
                         //Console.WriteLine("SHIP" + totalList.daily_shipments.Count);
@@ -674,10 +697,55 @@ namespace PULI
                     Orientation = StackOrientation.Vertical,
                     Children = { label, frame }
                 };
+                Label time_label = new Label
+                {
+                    FontSize = 20,
+                    Text = "時段 : "
+                };
 
-                
+                Picker time_picker = new Picker
+                {
+                    BackgroundColor = Color.White,
+                    Title = "請選擇時段",
+                    TextColor = Color.FromHex("#326292"),
+                    TitleColor = Color.FromHex("#326292")
+                };
+                time_picker.SelectedIndexChanged += usrTime_SelectedIndexChanged; // 選了一個職之後會觸發一個事件
 
-                return stack;
+                List<string> timeList = new List<string>();
+                foreach (var i in timeArray)
+                {
+                    timeList.Add(i);
+                }
+                time_picker.ItemsSource = timeList;
+
+                Frame time_frame = new Frame // frame包上面那個stacklayout
+                {
+                    BorderColor = Color.Olive,
+                    Padding = new Thickness(10, 5, 10, 5),
+                    Margin = new Thickness(0, 0, 0, 0),
+                    //BackgroundColor = Color.FromHex("eddcd2"),
+                    CornerRadius = 20,
+                    HasShadow = false,
+                    Content = time_picker
+                };
+
+                StackLayout time_stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Vertical,
+                    Children = { time_label, time_frame }
+                };
+
+                StackLayout final_stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Vertical,
+                    Children = { stack, time_stack }
+                };
+
+
+
+
+                return final_stack;
                 
             }
             catch (Exception ex)
@@ -698,6 +766,24 @@ namespace PULI
                 {
                     _resIdentity = (string)picker.ItemsSource[selectedIndex];
                     Console.WriteLine("identity~~~" + _resIdentity);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+        private void usrTime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Picker picker = (Picker)sender;
+                int selectedIndex = picker.SelectedIndex;
+
+                if (selectedIndex != -1)
+                {
+                    _time = (string)picker.ItemsSource[selectedIndex];
+                    Console.WriteLine("time~~~" + _time);
                 }
             }
             catch (Exception ex)

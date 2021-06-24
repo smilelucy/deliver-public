@@ -230,11 +230,20 @@ namespace PULI.Views
                    
                     if (MainPage.AUTH == "4" )
                     {
+
                         //Console.WriteLine("外送員~~~~");
                         MyMap.IsVisible = true;
                         MyMap.IsEnabled = true;
                         //Console.WriteLine("AUTH " + MainPage.AUTH);
-                        totalList = await web.Get_Daily_Shipment(MainPage.token);
+                        Console.WriteLine("timemap~~~ " + MainPage._time);
+                        if(MainPage._time == "早上")
+                        {
+                            totalList = await web.Get_Daily_Shipment(MainPage.token);
+                        }
+                        else
+                        {
+                            totalList = await web.Get_Daily_Shipment_night(MainPage.token);
+                        }
                         
                         
                       

@@ -58,6 +58,29 @@ namespace Deliver.Services
             }
             return null;
         }
+
+        public async Task<TotalList> Get_Daily_Shipment_night(string token)
+        {
+            Console.WriteLine("FHFHFH " + token);
+            HttpClient _client = new HttpClient();
+            _client.DefaultRequestHeaders.Add("AUTHORIZATION", "Token " + token);
+            MultipartFormDataContent formData = new MultipartFormDataContent();
+            formData.Add(new StringContent("2"), "type");
+            //_client.DefaultRequestHeaders.Add("AUTHORIZATION", "Token " + token);
+            var uri = new Uri(string.Format("http://59.120.147.32:8080/lt_care/api/dp/get_daily_shipment"));
+            //Console.WriteLine("heeeeeeeder : " + _client.DefaultRequestHeaders);
+            var response = await _client.PostAsync(uri, formData);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var list = JsonConvert.DeserializeObject<TotalList>(content);
+                Console.WriteLine("GDSEUCESS");
+                //Console.WriteLine(list.daily_shipments);
+                return list;
+            }
+            return null;
+        }
+
         public async Task<stopname> Get_Stop(string token)
         {
             Console.WriteLine("FHFHFH " + token);
