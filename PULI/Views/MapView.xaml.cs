@@ -270,10 +270,10 @@ namespace PULI.Views
                         }
                         //Console.WriteLine("SSSS" + cList2.Count);
                         //totalList = await web.Get_Daily_Shipment(MainPage.token);
-                       // //Console.WriteLine("Data4~" + totalList.daily_shipments.Count());
-                        //Console.WriteLine("QQQQ" + totalList.daily_shipments.Count);
+                        Console.WriteLine("Data4~ " + totalList.daily_shipments.Count());
+                        Console.WriteLine("QQQQ " + totalList.daily_shipments.Count);
                        
-                        ////Console.WriteLine("DATA3~" + clientList.Count());
+                        Console.WriteLine("DATA3~ " + clientList.Count());
                         if (clientList != null)
                         {
                             //Console.WriteLine("QAQin~~~");
