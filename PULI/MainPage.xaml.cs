@@ -54,8 +54,8 @@ namespace PULI
         public static string time;
         public static bool checkdate = false;
         string _resIdentity = "";
-        string[] identityArray = new string[] { "社工", "外送員" };
-        string[] timeArray = new string[] { "早上", "晚上"};
+        string[] identityArray = new string[] { "社工", "送餐員" };
+        string[] timeArray = new string[] { "早上", "下午"};
 
         public MainPage()
         {

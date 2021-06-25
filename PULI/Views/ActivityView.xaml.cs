@@ -92,6 +92,7 @@ namespace PULI.Views
                         }
                     }
                     Console.WriteLine("restore~~~ " + restoreList.restore);
+                   // Console.WriteLine("restore0~~~ " + restoreList.restore[0]);
                     Console.WriteLine("total~~~ " + totalList.daily_shipments.Count());
                     Console.WriteLine("ct_name~~ " + ct_name_list[0]);
                     //for(int j = 0; j < stopList.stop.Count(); j++)
@@ -164,18 +165,28 @@ namespace PULI.Views
                         RowSpacing = 0,
                         ColumnSpacing = 0,
                         BackgroundColor = Color.FromHex("CFD4DD"),
-                        WidthRequest = 420,
+                        WidthRequest = 700,
                         HeightRequest = 150,
                         ColumnDefinitions =
                         {
 
-                            new ColumnDefinition{
-                                Width = new GridLength(2.5, GridUnitType.Star)
+                            new ColumnDefinition {
+                                 Width = new GridLength(2.5, GridUnitType.Star)
                             },
-                            new ColumnDefinition{
-                                Width = new GridLength(6, GridUnitType.Star)
+                            new ColumnDefinition {
+                                Width = new GridLength(10, GridUnitType.Star)
                             },
-                        }
+
+                        },
+                        //RowDefinitions =
+                        //{
+                        //    new RowDefinition {
+                        //        Height = GridLength.Auto
+                        //    },
+                        //    new RowDefinition {
+                        //        Height = GridLength.Auto
+                        //    },
+                        //}
                     };
                     //var total = new Button
                     //{
@@ -547,6 +558,7 @@ namespace PULI.Views
                         Margin = new Thickness(0, 2, 0, 2)
 
                     }, 0, 1);
+
                     grid_other.Children.Add(new Label
                     {
                         Text = stopList.stop,
@@ -555,7 +567,7 @@ namespace PULI.Views
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         BackgroundColor = Color.White,
-                        WidthRequest = 290,
+                        WidthRequest = 700,
                         Padding = new Thickness(5, 16, 5, 16),
                         Margin = new Thickness(0, 2, 0, 2)
 
@@ -568,7 +580,7 @@ namespace PULI.Views
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center,
                         BackgroundColor = Color.White,
-                        WidthRequest = 290,
+                        WidthRequest = 700,
                         Padding = new Thickness(5, 16, 5, 16),
                         Margin = new Thickness(0, 2, 0, 2)
 
