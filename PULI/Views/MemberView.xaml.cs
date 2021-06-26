@@ -77,7 +77,7 @@ namespace PULI.Views
            // Console.WriteLine("membername~~~" + MainPage.userList.acc_name);
             if(MainPage.AUTH == "4")
             {
-                auth.Text = "外送員";
+                auth.Text = "送餐員";
                 usrname.Text = MainPage.userList.acc_name;
             }
             else

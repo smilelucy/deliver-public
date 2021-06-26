@@ -713,6 +713,7 @@ namespace PULI.Views
                 }
                 else
                 {
+                    await DisplayAlert("系統訊息", "後臺尚未產生資料或資料接收不齊全", "ok");
                     Console.WriteLine("no shipment~~");
                 }
             }

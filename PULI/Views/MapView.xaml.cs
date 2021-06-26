@@ -273,10 +273,10 @@ namespace PULI.Views
                         total_need_to_serve = total_reserve_name.Count();
                         //Console.WriteLine("total_need_to_serve~~ " + total_reserve_name.Count());
                         //cList2.Reverse();
-                        for (int s = 0; s < cList2.Count(); s++)
-                        {
+                        //for (int s = 0; s < cList2.Count(); s++)
+                        //{
                             //Console.WriteLine("PPPP" + cList2[s].ct_name);
-                        }
+                        //}
                         //Console.WriteLine("SSSS" + cList2.Count);
                         //totalList = await web.Get_Daily_Shipment(MainPage.token);
                         Console.WriteLine("Data4~ " + totalList.daily_shipments.Count());

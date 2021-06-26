@@ -448,7 +448,7 @@ namespace PULI
                     Console.WriteLine("AAA " + account.Text);
                     Console.WriteLine("BBB " + pwd.Text);
                     Console.WriteLine("internet11~~~" + CrossConnectivity.Current.IsConnected);
-                    if(_resIdentity == "外送員")
+                    if(_resIdentity == "送餐員")
                     {
                         _identity = "dp";
                         Console.WriteLine("_residentity11~~~~" + _identity);
